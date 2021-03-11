@@ -728,7 +728,7 @@ package-rpm-x86_64-unknown-linux-gnu: package-x86_64-unknown-linux-gnu ## Build 
 	$(CONTAINER_TOOL) run -v  $(PWD):/git/timberio/vector/ -e TARGET=x86_64-unknown-linux-gnu timberio/ci_image ./scripts/package-rpm.sh
 
 .PHONY: package-rpm-x86_64-unknown-linux-musl
-package-rpm-x86_64-unknown-linux-musl: ## Build the x86_64 musl rpm package
+package-rpm-x86_64-unknown-linux-musl: package-x86_64-unknown-linux-musl ## Build the x86_64 musl rpm package
 	$(CONTAINER_TOOL) run -v  $(PWD):/git/timberio/vector/ -e TARGET=x86_64-unknown-linux-musl timberio/ci_image ./scripts/package-rpm.sh
 
 .PHONY: package-rpm-aarch64

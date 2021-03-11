@@ -49,7 +49,7 @@ export
 # For some architectures, like armv7hl it doesn't match the arch
 # from Rust target triple and needs to be specified manually.
 ARCH="${ARCH:-"$(echo "$TARGET" | cut -d'-' -f1)"}"
-LIBC="${LIBC:-"$(echo "$TARGET" | cut -d'-' -f"-1")"}"
+LIBC="${LIBC:-"$(echo "$TARGET" | awk -F'-' '{ print $NF }')"}"
 
 GLIBC_VERSION="${GLIBC_VERSION:-}"
 if [[ -z "$GLIBC_VERSION" && "$LIBC" == *"gnu"* ]] ; then
@@ -85,7 +85,7 @@ rpmbuild \
   --define "_topdir $RPMBUILD_DIR" \
   --target "$ARCH-redhat-linux" \
   --define "_arch $ARCH" \
-  --define "_glibc_version ${GLIBC_VERSION:-nil}" \
+  --define "_glibc_version \"${GLIBC_VERSION}\"" \
   --nodebuginfo \
   -ba distribution/rpm/vector.spec
 
